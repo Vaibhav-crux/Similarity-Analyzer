@@ -1,8 +1,6 @@
 # Similarity-Analyzer
 This Python script in the repository compares textual similarity between files in Google Cloud Storage. It uses NLP techniques like tokenization, stemming, and cosine similarity to measure similarity between file pairs in two folders within a bucket. The results are written to a CSV file for a detailed comparison.
 
-# Similarity Analyzer
-
 ## Overview
 The Similarity Analyzer script compares the textual content of files in two folders within a Google Cloud Storage (GCS) bucket and calculates the similarity between each pair of files using cosine similarity. The results are saved to a CSV file for further analysis.
 
