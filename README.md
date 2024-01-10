@@ -7,7 +7,7 @@ The Similarity Analyzer script compares the textual content of files in two fold
 ## Usage
 1. **Google Cloud Storage Setup:** Ensure you have a GCS bucket with the necessary files in the specified folders.
 2. **Install Dependencies:** Run `pip install nltk scikit-learn google-cloud-storage` to install the required libraries.
-3. **Run the Script:** Copy and paste the provided script into a Python file (e.g., `similarity_analyzer.py`). Update the GCS bucket name, folder paths, and output CSV file path.
+3. **Run the Script:** Copy and paste the provided script into a Python file (e.g., `text_similarity_analyzer.py`). Update the GCS bucket name, folder paths, and output CSV file path.
 4. **Execute the Script:** Run the script to compare the textual similarity between files in the specified folders. Progress and results will be displayed in the console.
 5. **Review Results:** Open the generated CSV file to analyze the similarity scores between file pairs.
 
