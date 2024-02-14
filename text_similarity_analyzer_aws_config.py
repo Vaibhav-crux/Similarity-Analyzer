@@ -21,7 +21,7 @@ def stem_tokens(tokens, stemmer):
 def get_text_from_file(bucket_name, file_path, stemmer, encoding='utf-8'):
     try:
         # Create S3 client and access the file
-        s3 = boto3.client('s3', aws_access_key_id='YOUR_ACCESS_KEY', aws_secret_access_key='YOUR_SECRET_ACCESS_KEY')
+        s3 = boto3.client('s3', aws_access_key_id='AKIA6GBMC2IYNDPZG3UB', aws_secret_access_key='GlYVkMI7lXhZm9s0C3GVwVn72CgpOVa/6KUkxf2a')
         # s3 = boto3.client('s3')
         
         # Download file content and preprocess it
@@ -48,11 +48,10 @@ def calculate_similarity(text1, text2):
     
     return similarity_value
 
-# Define function to compare files in two folders and write results to CSV
 def compare_folders(bucket_name, folder1, folder2, output_csv):
     # Initialize stemming
     stemmer = PorterStemmer()
-    
+
     # Record start time
     start_time = time.time()
 
@@ -60,12 +59,13 @@ def compare_folders(bucket_name, folder1, folder2, output_csv):
     with open(output_csv, 'w', newline='') as csvfile:
         fieldnames = ['File1', 'File2', 'Similarity']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        
+
         # Write CSV header
         writer.writeheader()
 
         # Create S3 client and access specified folders
-        s3 = boto3.client('s3', aws_access_key_id='YOUR_ACCESS_KEY', aws_secret_access_key='YOUR_SECRET_ACCESS_KEY')
+        s3 = boto3.client('s3', aws_access_key_id='AKIA6GBMC2IYNDPZG3UB',
+                          aws_secret_access_key='GlYVkMI7lXhZm9s0C3GVwVn72CgpOVa/6KUkxf2a')
 
         objs_folder1 = [obj['Key'] for obj in s3.list_objects(Bucket=bucket_name, Prefix=folder1).get('Contents', [])]
         objs_folder2 = [obj['Key'] for obj in s3.list_objects(Bucket=bucket_name, Prefix=folder2).get('Contents', [])]
@@ -85,13 +85,24 @@ def compare_folders(bucket_name, folder1, folder2, output_csv):
 
                 processed_files += 1
                 progress_percentage = (processed_files / total_files) * 100
-                print(f"Progress: {progress_percentage:.2f}% ({processed_files}/{total_files} files processed)", end='\r')
-                
+                remaining_files = total_files - processed_files
+                time_elapsed = time.time() - start_time
+                time_per_file = time_elapsed / processed_files if processed_files > 0 else 0
+                remaining_time = remaining_files * time_per_file
+
+                hours, remainder = divmod(remaining_time, 3600)
+                minutes, _ = divmod(remainder, 60)
+
+                print(f"Progress: {progress_percentage:.2f}% "
+                      f"({processed_files}/{total_files} files processed) "
+                      f"Estimated Time Remaining: {int(hours)}h {int(minutes)}m", end='\r')
+
     # Record end time and calculate total execution time
     end_time = time.time()
     total_time_minutes = (end_time - start_time) / 60
 
     print(f"\nTask completed. Total execution time: {total_time_minutes:.2f} minutes.")
+
 
 # Specify S3 bucket and folder paths
 s3_bucket_name = 'urgentspm'
