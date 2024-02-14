@@ -105,10 +105,10 @@ def compare_folders(bucket_name, folder1, folder2, output_csv):
 
 
 # Specify S3 bucket and folder paths
-s3_bucket_name = 'urgentspm'
-folder1 = 'niti/'
-folder2 = 'downloads/'
-output_csv = '/home/vectorCount.csv'
+s3_bucket_name = 'S3_BUCKET_NAME'
+folder1 = 'FOLDER1/'
+folder2 = 'FOLDER2/'
+output_csv = '/home/CSV_FILE_NAME.csv'
 
 # Run the script
 print("Processing...")
